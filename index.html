@@ -142,6 +142,14 @@ footer .wrap{padding-block:28px 40px;display:flex;flex-wrap:wrap;gap:16px 32px;a
 #copy-note{font-size:var(--s-xs);color:var(--beam);min-width:6ch}
 footer small{color:var(--muted);font-size:var(--s-xs)}
 
+/* ---------- LightOn ---------- */
+.lighton{display:grid;gap:28px;padding-top:clamp(28px,5vw,48px);border-top:1px solid var(--line)}
+ol.milestones{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border-top:2px solid var(--beam)}
+ol.milestones li{display:grid;gap:4px;align-content:start;padding:14px 18px 0 0;position:relative}
+ol.milestones li::before{content:"";position:absolute;top:-7px;left:0;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--beam)}
+ol.milestones .mono{color:var(--beam);font-weight:500;font-size:.85rem;padding-top:4px}
+ol.milestones p{font-size:var(--s-sm);color:var(--muted)}
+
 /* ---------- fintech ---------- */
 .ham{display:grid;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
 .ham div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;padding:10px 14px;border-top:1px solid var(--line)}
@@ -284,6 +292,55 @@ ol.pipe p{color:var(--muted);font-size:var(--s-sm);margin-top:4px;max-width:72ch
       <canvas id="speckle2" style="width:100%;aspect-ratio:4/3;border-radius:10px;background:var(--bg);display:block" aria-label="Animated simulation of an optical speckle pattern"></canvas>
       <span class="mono cap">Simulated speckle: many waves with random phases interfering. Move the pointer over it to change the input wavefront.</span>
     </div>
+  </div>
+
+  <div class="lighton">
+    <div class="sec-head">
+      <p class="eyebrow">From the lab to industry</p>
+      <h2>LightOn: optical computing as a company</h2>
+      <p>In 2016, Sylvain Gigan co-founded LightOn in Paris with Igor Carron, Laurent Daudet and Florent Krzakala. Their idea came straight from research on light in complex media: use a scattering material as a physical co-processor for AI.</p>
+    </div>
+
+    <div class="two">
+      <div class="prose">
+        <p>LightOn's Optical Processing Unit (OPU) encodes data onto a laser beam, sends it through a scattering medium and records the resulting speckle on a camera. The medium multiplies the input by a very large fixed random matrix in a single pass of light. Random projections like this are a building block of many machine learning methods, and the optical version runs them at a size and energy cost that are hard to match electronically.</p>
+        <p>The company then broadened into large language models and now builds Paradigm, a secure generative AI platform for enterprises. It is a good example of where my PhD field can lead: physics done in an academic lab becoming computing hardware and products used in practice.</p>
+        <p><a href="https://www.lighton.ai" target="_blank" rel="noopener">Visit lighton.ai ↗</a></p>
+      </div>
+      <div class="panel">
+        <h3>How the OPU computes</h3>
+        <div class="fig" style="margin-top:12px">
+          <svg viewBox="0 0 440 200" role="img" aria-label="Diagram: a laser beam carries the input x through a scattering medium, which applies a random matrix R, and a camera records the intensity of Rx">
+            <text x="10" y="40" class="lbl">input x</text>
+            <text x="10" y="56">encoded on light</text>
+            <line x1="20" y1="110" x2="150" y2="110" class="beam" stroke-width="4"/>
+            <path d="M118 102 l14 8 -14 8" class="beam" stroke-width="2"/>
+            <rect x="152" y="60" width="78" height="100" rx="6" class="box" stroke-width="1.5"/>
+            <circle cx="170" cy="82" r="3" class="inkfill"/><circle cx="196" cy="74" r="2.5" class="inkfill"/><circle cx="214" cy="94" r="3" class="inkfill"/>
+            <circle cx="178" cy="112" r="2.5" class="inkfill"/><circle cx="204" cy="122" r="3" class="inkfill"/><circle cx="168" cy="140" r="3" class="inkfill"/>
+            <circle cx="216" cy="144" r="2.5" class="inkfill"/><circle cx="190" cy="98" r="2" class="inkfill"/><circle cx="194" cy="142" r="2" class="inkfill"/>
+            <text x="191" y="180" text-anchor="middle" class="lbl">scattering medium</text>
+            <text x="191" y="196" text-anchor="middle">fixed random matrix R</text>
+            <line x1="232" y1="110" x2="330" y2="78" class="beam" stroke-width="1.5"/>
+            <line x1="232" y1="110" x2="330" y2="96" class="beam" stroke-width="1.5"/>
+            <line x1="232" y1="110" x2="330" y2="110" class="beam" stroke-width="1.5"/>
+            <line x1="232" y1="110" x2="330" y2="126" class="beam" stroke-width="1.5"/>
+            <line x1="232" y1="110" x2="330" y2="142" class="beam" stroke-width="1.5"/>
+            <rect x="332" y="66" width="16" height="88" rx="2" class="inkfill"/>
+            <text x="362" y="104" class="lbl">camera</text>
+            <text x="362" y="122">y = |Rx|²</text>
+          </svg>
+        </div>
+        <span class="mono cap">The scattering does the matrix multiplication. The camera reads out the result as a speckle pattern.</span>
+      </div>
+    </div>
+
+    <ol class="milestones">
+      <li><span class="mono">2016</span><p>Founded in Paris by Igor Carron, Laurent Daudet, Florent Krzakala and Sylvain Gigan.</p></li>
+      <li><span class="mono">2018</span><p>First Optical Processing Unit launched.</p></li>
+      <li><span class="mono">2021</span><p>An OPU is integrated into Jean Zay, the French national supercomputer, the first TOP500 system with this kind of optical hardware.</p></li>
+      <li><span class="mono">2024</span><p>Lists on Euronext Growth Paris, Europe's first listed generative AI startup.</p></li>
+    </ol>
   </div>
 
   <div style="display:grid;gap:14px">
