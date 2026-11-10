@@ -142,6 +142,31 @@ footer .wrap{padding-block:28px 40px;display:flex;flex-wrap:wrap;gap:16px 32px;a
 #copy-note{font-size:var(--s-xs);color:var(--beam);min-width:6ch}
 footer small{color:var(--muted);font-size:var(--s-xs)}
 
+/* ---------- fintech ---------- */
+.ham{display:grid;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
+.ham div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;padding:10px 14px;border-top:1px solid var(--line)}
+.ham div:first-child{border-top:0}
+.ham .term{font-family:var(--f-mono);font-size:.95rem;color:var(--ink)}
+.ham .what{font-size:var(--s-xs);color:var(--muted)}
+ol.pipe{list-style:none;margin:0;padding:0;display:grid;gap:0;border-left:1px solid var(--line);margin-left:15px}
+ol.pipe li{position:relative;display:grid;grid-template-columns:minmax(0,1fr);padding:0 0 26px 34px}
+ol.pipe li:last-child{padding-bottom:0}
+ol.pipe .n{position:absolute;left:-16px;top:0;width:31px;height:31px;border-radius:50%;background:var(--beam);color:var(--bg);display:grid;place-items:center;font-family:var(--f-mono);font-size:.85rem;font-weight:500}
+ol.pipe h3{font-size:var(--s-md);font-weight:700;padding-top:4px}
+ol.pipe p{color:var(--muted);font-size:var(--s-sm);margin-top:4px;max-width:72ch}
+.nb-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px 40px;align-items:end;background:var(--beam);color:var(--bg);border-radius:18px;padding:clamp(22px,4vw,36px)}
+.nb-card .eyebrow{color:var(--bg);opacity:.75}
+.nb-card h2{font-size:var(--s-xl);font-weight:700}
+.nb-card p{opacity:.85}
+.nb-card ol.toc{margin:6px 0 0;padding-left:1.3em;columns:2 240px;column-gap:32px;font-size:var(--s-sm);opacity:.9}
+.nb-card ol.toc li{break-inside:avoid;margin-bottom:4px}
+.nb-actions{display:grid;gap:10px}
+.nb-card .btn{justify-content:center;background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 45%,transparent)}
+.nb-card .btn.primary{background:var(--bg);color:var(--beam);border-color:var(--bg)}
+.nb-card .btn:hover{border-color:var(--bg)}
+.nb-card .btn.primary:hover{background:var(--bg);color:var(--ink)}
+@media (max-width:720px){.nb-card{grid-template-columns:minmax(0,1fr)}}
+
 /* ---------- phones ---------- */
 .btn{min-height:44px}
 @media (max-width:720px){
@@ -206,12 +231,10 @@ footer small{color:var(--muted);font-size:var(--s-xs)}
     </div>
   </div>
 
-<div class="two">
-  <div class="sec-head">
-    <h2>From quantum to AI</h2>
-  </div>
-</div>
-     
+  <div class="two">
+    <div class="sec-head">
+      <h2>From quantum to AI</h2>
+    </div>
     <div class="timeline" role="list">
       <div class="t-item now" role="listitem">
         <div class="t-when">Nov 2026 – 2029</div>
@@ -223,7 +246,7 @@ footer small{color:var(--muted);font-size:var(--s-xs)}
       </div>
       <div class="t-item" role="listitem">
         <div class="t-when">Sep – Oct 2025</div>
-        <div class="t-what"><h3>Quantum finance hackathon · London</h3><p>Portfolio optimization, City of London × IBM.</p><a class="more" href="#fintech">Quantum fintech →</a></div>
+        <div class="t-what"><h3>Quantum finance hackathon · London</h3><p>Hybrid AI + QAOA pipeline for portfolio optimization, City of London × IBM.</p><a class="more" href="#fintech">Quantum fintech →</a></div>
       </div>
       <div class="t-item" role="listitem">
         <div class="t-when">Feb – Jul 2025</div>
@@ -390,32 +413,110 @@ footer small{color:var(--muted);font-size:var(--s-xs)}
 <!-- =============== FINTECH =============== -->
 <section class="view" id="v-fintech" data-view="fintech" hidden>
   <div class="page-hero">
-    <p class="eyebrow">London · Sep – Oct 2025</p>
-    <h1>Quantum computing for finance</h1>
-    <p class="lede">I took part in a quantum computing hackathon for finance organized by the City of London in partnership with IBM, working on a stock portfolio optimization project.</p>
+    <p class="eyebrow">London · Sep – Oct 2025 · City of London × IBM</p>
+    <h1>Quantum computing for portfolio optimization</h1>
+    <p class="lede">At a quantum computing hackathon for finance organized by the City of London with IBM, our team, French Qubits, built a hybrid AI and quantum pipeline that picks a portfolio of assets. Classical and quantum machine learning narrow down the market, and a quantum optimization algorithm (QAOA) chooses the final portfolio.</p>
   </div>
 
   <div class="two">
     <div class="prose">
-      <p>Choosing which assets to hold, and in what proportion, means balancing expected return against risk under real constraints such as budget and number of positions. When the choices are discrete, the number of possible portfolios grows exponentially with the number of assets. Problems of this kind are among the first candidates for quantum optimization algorithms.</p>
-      <p>The hackathon brought together physicists, engineers and finance professionals to test these ideas on real problems with IBM's quantum computing tools.</p>
-      <p class="muted">I'll add a short write-up of our approach and results here.</p>
+      <h2 style="font-size:var(--s-xl)">The problem</h2>
+      <p>An investor wants the best return for a given level of risk. If each asset is either in or out of the portfolio, the choice becomes a combinatorial problem: with N assets there are 2<sup>N</sup> possible portfolios, and exact classical solvers become impractical beyond a few dozen assets.</p>
+      <p>The classic Markowitz trade-off between return and risk can be written as a quadratic problem over binary variables (a QUBO). Replacing each binary variable x<sub>i</sub> with a spin, x<sub>i</sub> = (1 − Z<sub>i</sub>)/2, turns it into an Ising Hamiltonian. Finding the best portfolio then means finding the ground state of that Hamiltonian, which is exactly what QAOA is designed to approximate.</p>
+      <p>We went beyond the textbook version and built a cost Hamiltonian with the constraints a real portfolio manager faces.</p>
+    </div>
+    <div class="panel" style="display:grid;gap:12px">
+      <h3>Our cost Hamiltonian</h3>
+      <div class="ham">
+        <div><span class="term">− Σ μ<sub>i</sub> x<sub>i</sub></span><span class="what">expected return</span></div>
+        <div><span class="term">+ Σ σ<sub>ij</sub> x<sub>i</sub> x<sub>j</sub></span><span class="what">risk (covariance)</span></div>
+        <div><span class="term">+ A (Σ x<sub>i</sub> − B)²</span><span class="what">pick exactly B assets</span></div>
+        <div><span class="term">+ λ<sub>l</sub> Σ (1 − L<sub>i</sub>) x<sub>i</sub></span><span class="what">liquidity</span></div>
+        <div><span class="term">+ Σ C<sub>i</sub> x<sub>i</sub></span><span class="what">fixed transaction costs</span></div>
+        <div><span class="term">+ Σ M<sub>ij</sub> x<sub>i</sub> x<sub>j</sub></span><span class="what">market impact</span></div>
+      </div>
+      <span class="mono cap">x<sub>i</sub> ∈ {0, 1} says whether asset i is in the portfolio. Each term maps onto Z and ZZ operators on the qubits.</span>
+    </div>
+  </div>
+
+  <div style="display:grid;gap:18px">
+    <div class="sec-head">
+      <p class="eyebrow">What we built</p>
+      <h2>A five-stage hybrid pipeline</h2>
+      <p>Today's quantum computers can only handle a handful of assets, so most of the work is choosing which assets reach the quantum stage, and giving the quantum algorithm a good starting point.</p>
+    </div>
+    <ol class="pipe">
+      <li>
+        <span class="n">1</span>
+        <div><h3>Quantum kernel pre-selection</h3>
+        <p>Each asset is described by features such as returns, volatility and Sharpe ratio, then encoded into a quantum state with a ZZ feature map. The overlaps between these states form a Gram matrix that captures nonlinear similarities between assets. We turned it into a distance matrix, grouped assets with K-means (choosing the number of clusters by silhouette score), and visualized the structure with kernel PCA and t-SNE.</p></div>
+      </li>
+      <li>
+        <span class="n">2</span>
+        <div><h3>AI module</h3>
+        <p>Two classical tools complement the quantum kernel. A graphical lasso estimates the network of partial correlations between stocks from their daily price variations and clusters them. A dilated residual convolutional network is trained on windows of past returns and trading volume to predict next-day returns, acting as a filter for the most promising assets.</p></div>
+      </li>
+      <li>
+        <span class="n">3</span>
+        <div><h3>Warm-start state preparation</h3>
+        <p>QAOA results depend strongly on the initial state, especially for the fermionic variant. We built a circuit of Rx and Ry rotations that prepares an arbitrary target distribution, trained by minimizing the Kullback–Leibler divergence with SPSA and with a genetic optimizer. We used it to load the classical solution as a starting point, and to prepare Dicke states that already contain exactly the number of assets we want.</p></div>
+      </li>
+      <li>
+        <span class="n">4</span>
+        <div><h3>QAOA and its variants</h3>
+        <p>We implemented standard QAOA alongside several variants: a fermionic XX + YY mixer that keeps the number of selected assets fixed, a cat-map mixer, multi-angle QAOA with independent angles per qubit, and a Fourier parameterization of the angles. We compared optimizers including COBYLA, SPSA, Nelder–Mead and a custom genetic optimizer.</p></div>
+      </li>
+      <li>
+        <span class="n">5</span>
+        <div><h3>Noisy hardware simulation and analysis</h3>
+        <p>We ran the pipeline on a simulator with a noise model built to mimic IBM quantum hardware, then analyzed the resulting portfolios. We also tested it on a cryptocurrency portfolio (Bitcoin, Ethereum, Solana) under different budget, cost and liquidity settings.</p></div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="two">
+    <div class="prose">
+      <h2 style="font-size:var(--s-xl)">Classical baselines</h2>
+      <p>To judge the quantum results fairly, we also implemented classical methods: a Bayesian Black–Litterman model that combines market equilibrium returns with an investor's views, classical solvers for the same problem, and variational quantum imaginary time evolution (V-QITE) as another quantum approach.</p>
     </div>
     <div style="display:grid;gap:14px">
+      <div class="panel" style="display:grid;gap:8px">
+        <span class="eyebrow">Team French Qubits</span>
+        <p style="font-size:var(--s-sm)">Alban Leschallier de Lisle, Théo Mahieu, Oriane D'Alençon, Jimmy Bou Serhal and Anthony Abi Aad</p>
+      </div>
       <div class="panel" style="display:grid;gap:8px">
         <span class="eyebrow">Recognition</span>
         <h3>Certificate of participation, and a recommendation letter from Leighton Hughes</h3>
         <p style="color:var(--muted);font-size:var(--s-sm)">Senior Adviser, FinTech &amp; Digital Infrastructure, City of London</p>
       </div>
-      <div class="panel" style="display:grid;gap:10px">
-        <span class="eyebrow">Also in fintech &amp; innovation</span>
-        <p style="font-size:var(--s-sm)">Development, innovation and entrepreneurship program at Université PSL (2024 – 2025), and co-founder of the Quantum Research &amp; Technologies Association.</p>
-      </div>
     </div>
   </div>
 
   <div class="chips">
-    <span class="chip">portfolio optimization</span><span class="chip">quantum algorithms</span><span class="chip">IBM Quantum</span><span class="chip">City of London</span>
+    <span class="chip">QAOA</span><span class="chip">multi-angle QAOA</span><span class="chip">fermionic mixer</span><span class="chip">quantum kernels</span><span class="chip">warm start</span><span class="chip">Dicke states</span><span class="chip">CNN</span><span class="chip">graphical lasso</span><span class="chip">Black–Litterman</span><span class="chip">Qiskit</span>
+  </div>
+
+  <div class="nb-card" id="notebook">
+    <div style="display:grid;gap:10px;min-width:0">
+      <p class="eyebrow">The full notebook</p>
+      <h2>French Qubits: portfolio optimization</h2>
+      <p>All the theory, code, circuits and results from the hackathon, in one Jupyter notebook.</p>
+      <ol class="toc">
+        <li>Problem definition: from QUBO to Ising</li>
+        <li>Classical and quantum methods compared</li>
+        <li>QAOA and its variants</li>
+        <li>Warm start with arbitrary state preparation</li>
+        <li>The full pipeline</li>
+        <li>Quantum kernel pre-selection</li>
+        <li>AI module</li>
+        <li>Hardware backend and portfolio analysis</li>
+        <li>Cryptocurrencies, and an appendix with classical baselines</li>
+      </ol>
+    </div>
+    <div class="nb-actions">
+      <a class="btn primary" href="fintech-notebook.html" target="_blank" rel="noopener">Read the notebook →</a>
+      <a class="btn" href="https://github.com/anthonyabiaad/my-personal-website/blob/main/FRENCH_QUBITS_FINAL_NOTEBOOK.ipynb" target="_blank" rel="noopener">View .ipynb on GitHub ↗</a>
+    </div>
   </div>
 </section>
 
